@@ -1,3 +1,8 @@
-import urllib.request
-response = urllib.request.urlopen('https://www.python.org')
-print(response.read().decode('utf-8'))
+import http.cookiejar, urllib.request
+
+cookie = http.cookiejar.CookieJar()
+handler = urllib.request.HTTPCookieProcessor(cookie)
+opener = urllib.request.build_opener(handler)
+response = opener.open('http://www.baidu.com')
+for item in cookie:
+    print(item.name+"="+item.value)
